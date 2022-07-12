@@ -13,10 +13,15 @@ const errorMessages = {
     birthDate: {
         customError: 'Você deve ser maior de 18 para se cadastrar!',
         valueMissing: 'O campo não pode estar vazio!'
+    },
+    cpf: {
+        valueMissing: 'O campo não pode estar vazio!',
+        customError: 'O CPF digitado não é válido.'
     }
 };
 const validators = {
-    birthDate:input => valiDate(input)
+    birthDate:input => valiDate(input),
+    cpf:input => valiCPF(input)
 };
 const errorTypes = [
     'valueMissing',
@@ -73,6 +78,41 @@ function moreThan18(date) {
     );
 
     return (moreThan18Date <= currentDate);
+}
+
+function valiCPF(input) {
+    const formattedCPF = input.value.replace((/\D/g), '');
+    let msg = '';
+
+    if(!repCheckCPF(formattedCPF)) {
+        msg = 'O CPF digitado não é válido.'
+    };
+
+    input.setCustomValidity(msg);
+}
+
+function repCheckCPF(cpf) {
+    const repValues = [
+        '00000000000',
+        '11111111111',
+        '22222222222',
+        '33333333333',
+        '44444444444',
+        '55555555555',
+        '66666666666',
+        '77777777777',
+        '88888888888',
+        '99999999999'
+    ];
+    let validCPF = true;
+
+    repValues.forEach((value) => {
+        if(value === cpf) {
+            validCPF = false;
+        };
+    });
+
+    return validCPF;
 }
 
 birthDate.addEventListener('blur', (event) => {
