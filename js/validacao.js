@@ -1,5 +1,6 @@
 "use sctrict"
 
+// all global variables
 const birthDate = document.querySelector('#nascimento');
 const errorMessages = {
     email: {
@@ -30,6 +31,8 @@ const errorTypes = [
     'customError'
 ];
 
+
+// main function
 export function validate(input) {
     const inputType = input.dataset.type;
 
@@ -46,6 +49,8 @@ export function validate(input) {
     };
 }
 
+
+// function that shows the error message
 function showErrorMsg(inputType, input) {
     let msg = '';
 
@@ -57,6 +62,11 @@ function showErrorMsg(inputType, input) {
 
     return msg;
 }
+
+// date checker
+birthDate.addEventListener('blur', (event) => {
+    valiDate(event.target);
+});
 
 function valiDate(input) {
     const receivedDate = new Date(input.value);
@@ -80,6 +90,7 @@ function moreThan18(date) {
     return (moreThan18Date <= currentDate);
 }
 
+// cpf checker
 function valiCPF(input) {
     const formattedCPF = input.value.replace((/\D/g), '');
     let msg = '';
@@ -114,7 +125,3 @@ function repCheckCPF(cpf) {
 
     return validCPF;
 }
-
-birthDate.addEventListener('blur', (event) => {
-    valiDate(event.target);
-});
