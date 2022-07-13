@@ -164,7 +164,18 @@ function retrieveCEP(input) {
                 }
 
                 input.setCustomValidity('');
+                fillAdressByCEP(data);
             }
         )
     }
+}
+
+function fillAdressByCEP(data) {
+    let place = document.querySelector('[data-type="place"]');
+    let city = document.querySelector('[data-type="city"]');
+    let state = document.querySelector('[data-type="state"]');
+
+    place.value = data.logradouro;
+    city.value = data.localidade;
+    state.value = data.uf;
 }
