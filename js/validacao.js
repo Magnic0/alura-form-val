@@ -1,7 +1,6 @@
 "use sctrict"
 
 // all global variables
-const birthDate = document.querySelector('#nascimento');
 const errorMessages = {
     email: {
         typeMismatch: 'Digite um email válido.',
@@ -31,6 +30,9 @@ const errorMessages = {
         valueMissing: 'O campo não pode estar vazio!'
     },
     state: {
+        valueMissing: 'O campo não pode estar vazio!'
+    },
+    preco: {
         valueMissing: 'O campo não pode estar vazio!'
     }
 };
@@ -64,7 +66,6 @@ export function validate(input) {
     };
 }
 
-
 // function that shows the error message
 function showErrorMsg(inputType, input) {
     let msg = '';
@@ -79,10 +80,6 @@ function showErrorMsg(inputType, input) {
 }
 
 // date checker
-birthDate.addEventListener('blur', (event) => {
-    valiDate(event.target);
-});
-
 function valiDate(input) {
     const receivedDate = new Date(input.value);
     let message = '';
