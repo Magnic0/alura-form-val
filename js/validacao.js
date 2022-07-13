@@ -2,6 +2,9 @@
 
 // all global variables
 const errorMessages = {
+    name: {
+        valueMissing: 'O campo não pode estar vazio!'
+    },
     email: {
         typeMismatch: 'Digite um email válido.',
         valueMissing: 'O campo não pode estar vazio!'
@@ -32,7 +35,7 @@ const errorMessages = {
     state: {
         valueMissing: 'O campo não pode estar vazio!'
     },
-    preco: {
+    price: {
         valueMissing: 'O campo não pode estar vazio!'
     }
 };
