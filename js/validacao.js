@@ -21,12 +21,23 @@ const errorMessages = {
     },
     cep: {
         valueMissing: 'O campo não pode estar vazio!',
-        patternMismatch: 'O CEP digitado não é válido.'
+        patternMismatch: 'O CEP digitado não é válido.',
+        customError: 'Endereço não encontrado.'
+    },
+    place: {
+        valueMissing: 'O campo não pode estar vazio!'
+    },
+    city: {
+        valueMissing: 'O campo não pode estar vazio!'
+    },
+    state: {
+        valueMissing: 'O campo não pode estar vazio!'
     }
 };
 const validators = {
     birthDate:input => valiDate(input),
-    cpf:input => valiCPF(input)
+    cpf:input => valiCPF(input),
+    cep:input => retrieveCEP(input)
 };
 const errorTypes = [
     'valueMissing',
@@ -128,4 +139,32 @@ function repCheckCPF(cpf) {
     });
 
     return validCPF;
+}
+
+// cep checker
+function retrieveCEP(input) {
+    let cep = input.value.replace(/\D/g, '');
+    let url = `https://viacep.com.br/ws/${cep}/json/`;
+    let options = {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+            'content-type': 'application/json;charset=utf-8'
+        }
+    }
+
+    if(!input.validity.patternMismatch || input.validity.valueMissing) {
+        fetch(url, options).then(
+            response => response.json()
+        ).then(
+            data => {
+                if(data.erro) {
+                    input.setCustomValidity(cep.customError);
+                    return;
+                }
+
+                input.setCustomValidity('');
+            }
+        )
+    }
 }
