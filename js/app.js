@@ -4,11 +4,11 @@ const inputs = document.querySelectorAll('input');
 const birthDate = document.querySelector('#nascimento');
 
 inputs.forEach((input) => {
-
     input.addEventListener('blur', (event) => {
         validate(event.target);
         if(input.dataset.type === 'price') {
-            if(input.value == 0) {
+            if(input.value == 0 || input.value === "0" || input.value === "R$ 0,00") {
+                input.value = '';
                 return;
             }
             SimpleMaskMoney.setMask(input, {
